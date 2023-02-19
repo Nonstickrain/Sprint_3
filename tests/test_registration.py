@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 
 
 def test_registration_opens_sign_in_screen(valid_registration):
@@ -14,6 +16,8 @@ def test_registration_opens_sign_in_screen(valid_registration):
     driver.find_element(By.NAME, "Пароль").send_keys(valid_registration[2]) #локатор поля ввода пароля
 
     driver.find_element(By.XPATH, ".//button[text() = 'Зарегистрироваться']").click() #локатор поля ввода кнопки регистрации на экране регистрации
+
+    WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//div[@class = 'Auth_login__3hAey']")))
 
     assert '/login' in driver.current_url
 
@@ -30,6 +34,8 @@ def test_registration_error_due_to_invalid_password(invalid_registration_due_to_
     driver.find_element(By.NAME, "Пароль").send_keys(invalid_registration_due_to_password[2]) #локатор поля ввода пароля
 
     driver.find_element(By.XPATH, ".//button[text() = 'Зарегистрироваться']").click() #локатор поля ввода кнопки регистрации на экране регистрации
+
+    WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//p[text()='Некорректный пароль']")))
 
     error_alert = driver.find_element(By.XPATH, ".//p[text()='Некорректный пароль']") #локатор алерта ошибки ввода пароля
 

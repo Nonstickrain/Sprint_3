@@ -22,6 +22,8 @@ def test_move_to_construct_from_account_page_by_section_button(account):
 
     driver.find_element(By.XPATH,".//p[text() = 'Конструктор']/..").click() #локатор кнопки секции конструктора в хидере
 
+    WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//section[@class = 'BurgerIngredients_ingredients__1N8v2']")))
+
     assert driver.find_element(By.XPATH, ".//section[@class = 'BurgerIngredients_ingredients__1N8v2']").is_displayed() #локатор конструктора
 
     driver.quit()
@@ -44,6 +46,8 @@ def test_move_to_construct_from_account_page_by_click_on_logo(account):
     WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((account_main_element)))
 
     driver.find_element(By.XPATH,".//div[@class = 'AppHeader_header__logo__2D0X2']/a").click() #локатор кнопки лого в хидере
+
+    WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//section[@class = 'BurgerIngredients_ingredients__1N8v2']")))
 
     assert driver.find_element(By.XPATH, ".//section[@class = 'BurgerIngredients_ingredients__1N8v2']").is_displayed() #локатор конструктора
 
